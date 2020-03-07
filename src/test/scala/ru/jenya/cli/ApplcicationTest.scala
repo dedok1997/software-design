@@ -17,11 +17,6 @@ object ApplcicationTest extends TestSuite {
   val in = new ByteArrayInputStream(Array())
   val out = new ByteArrayOutputStream()
   val ctx = collection.mutable.Map.empty[String, String]
-
-  def assert(out: ByteArrayOutputStream, expected: String): Unit = {
-    new String(out.toByteArray) ==> expected
-  }
-
   val tests = Tests {
     test("echo a b c") {
       val res = Syntax.commands("echo a b c", Map.empty)
@@ -30,5 +25,9 @@ object ApplcicationTest extends TestSuite {
       Interpreter.handle(pipe, in, out, ctx)
       assert(out, "a b c\n")
     }
+  }
+
+  def assert(out: ByteArrayOutputStream, expected: String): Unit = {
+    new String(out.toByteArray) ==> expected
   }
 }

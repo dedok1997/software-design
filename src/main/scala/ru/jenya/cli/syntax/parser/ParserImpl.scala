@@ -2,6 +2,8 @@ package ru.jenya.cli.syntax.parser
 
 import ru.jenya.cli.syntax.data._
 
+import scala.util.Try
+
 class ParserImpl extends Parser {
 
   var currentToken = 0
@@ -85,6 +87,8 @@ class ParserImpl extends Parser {
   def parse(s: List[Token]): Either[String, PipeLine] = {
     tokens = s.toArray
     currentToken = 0
-    Right(parsePipeLine())
+    Try {
+      parsePipeLine()
+    }.toEither.left.map(_.toString)
   }
 }

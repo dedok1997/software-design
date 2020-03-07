@@ -13,8 +13,8 @@ object Interpreter {
     var tempOut: ByteArrayOutputStream = null
     var tempIn = in
     var result = true
-    commands.foreach{cmd =>
-      if(result) {
+    commands.foreach { cmd =>
+      if (result) {
         val commandName = cmd.cmd
         val handler = CMD.resolve(commandName)
         tempOut = new ByteArrayOutputStream()
