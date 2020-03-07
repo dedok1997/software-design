@@ -9,7 +9,7 @@ object WCCMD extends CMD {
               args: List[String],
               in: InputStream,
               out: OutputStream,
-              ctx: collection.mutable.Map[String, String]): Unit = {
+              ctx: collection.mutable.Map[String, String]) = {
     val fileName = args.mkString
     var lines = 0
     var words = 0
@@ -26,5 +26,6 @@ object WCCMD extends CMD {
     writer.write(s"${lines.toString} ")
     writer.write(s"${fileName} ${System.lineSeparator()}")
     writer.flush()
+    true
   }
 }

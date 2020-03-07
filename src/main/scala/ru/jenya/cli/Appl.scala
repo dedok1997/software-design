@@ -5,6 +5,7 @@ import java.io.File
 import ru.jenya.cli.interpret.Interpreter
 import ru.jenya.cli.show.CLIShowToken
 import ru.jenya.cli.syntax.Syntax
+import ru.jenya.cli.syntax.data.{Command, PipeLine}
 import ru.jenya.cli.syntax.lexer.LexerImpl
 import ru.jenya.cli.syntax.parser.ParserImpl
 
@@ -19,15 +20,11 @@ object Appl extends App {
   val out = System.out
 
   def run(ctx: collection.mutable.Map[String, String]): Unit = {
-    StdIn.readLine() match {
-      case "exit" => ()
-      case cmd =>
-        Syntax.commands(cmd, ctx) match {
-          case Right(p) =>
-            Interpreter.handle(p, in, out, ctx)
-            run(ctx)
-          case Left(_) => ()
-        }
+    Syntax.commands(StdIn.readLine(), ctx) match {
+      case Right(p) =>
+        val result = Interpreter.handle(p, in, out, ctx)
+        if (result) run(ctx)
+      case Left(_) => ()
     }
   }
 

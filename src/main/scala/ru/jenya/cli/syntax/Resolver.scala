@@ -5,6 +5,8 @@ import ru.jenya.cli.syntax.data._
 
 object Resolver {
 
+  //Convert tokens with  $(_) to resolved string
+  @scala.annotation.tailrec
   def resolve(l: List[Token],
               env: collection.Map[String, String],
               acc: List[String] = List())(implicit show: CLIShow[Token]): List[String] = l match {
@@ -17,7 +19,7 @@ object Resolver {
     case x :: xs => resolve(xs, env, show.show(x) :: acc)
   }
 
-  def resolveString(l: List[Char], env: collection.Map[String, String]): List[Char] = l match {
+  private def resolveString(l: List[Char], env: collection.Map[String, String]): List[Char] = l match {
     case Nil => Nil
     case '$' :: '(' :: xs =>
       val key = xs.takeWhile(_ != ')').mkString
@@ -29,24 +31,4 @@ object Resolver {
       env.getOrElse(key, "").toList ++ resolveString(tail, env)
     case x :: xs => x :: resolveString(xs, env)
   }
-
-  //
-  //  def resolve(l: List[Token]): List[Token] = l match {
-  //    case Str(s1)::Str(s2)::xs =>
-  //    Str(s1++s2)::resolve(xs)
-  //    case Nil => Nil
-  //    case x::xs => x::resolve(xs)
-  //  }
-  //
-  //  def resolve(l: List[Token], env: Map[String, String]): List[Token] = l match {
-  //
-  //    case Op("$")::OpBr::Str(key)::ClBr::xs =>
-  //      Str(env.getOrElse(key, ""))::resolve(xs, env)
-  //    case Op("$")::Str(key)::xs =>
-  //      Str(env.getOrElse(key, ""))::resolve(xs, env)
-  //    case x::xs => x::resolve(xs, env)
-  //    case Nil => Nil
-  //  }
-  //
-
 }

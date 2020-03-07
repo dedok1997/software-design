@@ -10,8 +10,9 @@ object PWDCMD extends CMD {
               args: List[String],
               in: InputStream,
               out: OutputStream,
-              ctx: collection.mutable.Map[String, String]): Unit = {
+              ctx: collection.mutable.Map[String, String]) = {
     val current = ctx.getOrElse(currentDir, "./")
     out.write(current.getBytes)
+    true
   }
 }

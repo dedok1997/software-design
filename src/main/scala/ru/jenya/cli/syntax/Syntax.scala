@@ -7,6 +7,7 @@ import ru.jenya.cli.syntax.parser.Parser
 
 object Syntax {
 
+  // Parse command from string
   def commands(str: String,
                env: collection.Map[String, String])(implicit l: Lexer,
                                                     p: Parser,
