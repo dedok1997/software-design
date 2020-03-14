@@ -1,6 +1,6 @@
 package ru.jenya.cli.interpret.command.grep
 
-import java.util.regex.{Matcher, Pattern}
+import java.util.regex.Pattern
 
 import ru.jenya.cli.interpret.command.grep.GrepCMD.MatchResult
 

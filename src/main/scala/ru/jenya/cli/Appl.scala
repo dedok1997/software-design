@@ -1,18 +1,12 @@
 package ru.jenya.cli
 
-import java.io.File
-import java.util.regex
-import java.util.regex.Pattern
-
 import ru.jenya.cli.interpret.Interpreter
 import ru.jenya.cli.show.CLIShowToken
 import ru.jenya.cli.syntax.Syntax
-import ru.jenya.cli.syntax.data.{Command, PipeLine}
 import ru.jenya.cli.syntax.lexer.LexerImpl
 import ru.jenya.cli.syntax.parser.ParserImpl
 
-import scala.io.{Source, StdIn}
-import scala.util.matching.Regex
+import scala.io.StdIn
 
 object Appl extends App {
 

@@ -2,8 +2,9 @@ package ru.jenya.cli.interpret.command
 
 import java.io.{File, InputStream, OutputStream}
 
-import scala.collection.JavaConverters._
 import ru.jenya.cli.interpret.envirnoment.EnvUtils._
+
+import scala.collection.JavaConverters._
 
 object AnotherCMD extends CMD {
   def execute(cmd: String,

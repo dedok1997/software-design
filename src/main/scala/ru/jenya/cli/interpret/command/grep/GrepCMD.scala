@@ -1,13 +1,13 @@
 package ru.jenya.cli.interpret.command.grep
 
-import scala.io.{Source, StdIn}
-import java.io.{BufferedReader, DataInputStream, InputStream, InputStreamReader, OutputStream, OutputStreamWriter}
-import java.util.regex.{Matcher, Pattern}
+import java.io.{InputStream, OutputStream, OutputStreamWriter}
+import java.util.regex.Pattern
 
 import ru.jenya.cli.interpret.command.CMD
 
+import scala.collection.SortedMap
 import scala.collection.immutable.TreeMap
-import scala.collection.{SortedMap, mutable}
+import scala.io.Source
 
 object GrepCMD extends CMD {
 

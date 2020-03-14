@@ -1,6 +1,6 @@
 package ru.jenya.cli.interpret.command
 
-import java.io.{BufferedReader, File, FileReader, FileWriter, InputStream, OutputStream, OutputStreamWriter}
+import java.io.{File, InputStream, OutputStream, OutputStreamWriter}
 
 import scala.io.Source
 

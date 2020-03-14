@@ -1,7 +1,6 @@
 package ru.jenya.cli.syntax.lexer
 
-import ru.jenya.cli._
-import ru.jenya.cli.syntax.data.{ClBr, EOF, Op, OpBr, Pipe, SimpleStr, Str, SubstStr, Token, WhiteSpace}
+import ru.jenya.cli.syntax.data._
 
 object LexerImpl extends Lexer {
   override def tokenize(string: List[Char]): List[Token] = string match {

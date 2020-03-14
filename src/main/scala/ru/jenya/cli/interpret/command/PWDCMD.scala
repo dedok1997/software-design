@@ -1,6 +1,6 @@
 package ru.jenya.cli.interpret.command
 
-import java.io.{BufferedReader, FileReader, InputStream, OutputStream}
+import java.io.{InputStream, OutputStream}
 
 object PWDCMD extends CMD {
 

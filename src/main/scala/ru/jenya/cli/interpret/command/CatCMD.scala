@@ -1,6 +1,6 @@
 package ru.jenya.cli.interpret.command
 
-import java.io.{BufferedReader, FileInputStream, FileReader, InputStream, OutputStream}
+import java.io.{BufferedReader, FileReader, InputStream, OutputStream}
 
 object CatCMD extends CMD {
   override def execute(s: String,
