@@ -21,8 +21,8 @@ object LexerImpl extends Lexer {
       val (_ :: tail) = xs.dropWhile(_ != '"')
       SubstStr(str.mkString) :: tokenize(tail)
     case xs =>
-      val str = xs.takeWhile(c => Character.isAlphabetic(c) || Character.isDigit(c) || c == '.')
-      val tail = xs.dropWhile(c => Character.isAlphabetic(c) || Character.isDigit(c) || c == '.')
+      val str = xs.takeWhile(c => !Character.isWhitespace(c))
+      val tail = xs.dropWhile(c => !Character.isWhitespace(c))
       if (str.nonEmpty) {
         Str(str.mkString) :: tokenize(tail)
       } else {

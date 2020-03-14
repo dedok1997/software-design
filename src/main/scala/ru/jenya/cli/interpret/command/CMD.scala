@@ -2,6 +2,8 @@ package ru.jenya.cli.interpret.command
 
 import java.io.{InputStream, OutputStream}
 
+import ru.jenya.cli.interpret.command.grep.GrepCMD
+
 trait CMD {
   def execute(s: String,
               args: List[String],
@@ -18,6 +20,7 @@ object CMD {
     case "pwd" => PWDCMD
     case "wc" => WCCMD
     case "=" => AssignCMD
+    case "grep" => GrepCMD
     case "exit" => ExitCMD
     case _ => AnotherCMD
   }
