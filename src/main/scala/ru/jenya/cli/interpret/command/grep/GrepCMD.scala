@@ -1,7 +1,7 @@
 package ru.jenya.cli.interpret.command.grep
 
 import scala.io.{Source, StdIn}
-import java.io.{InputStream, OutputStream, OutputStreamWriter}
+import java.io.{BufferedReader, DataInputStream, InputStream, InputStreamReader, OutputStream, OutputStreamWriter}
 import java.util.regex.{Matcher, Pattern}
 
 import ru.jenya.cli.interpret.command.CMD
@@ -18,7 +18,7 @@ object GrepCMD extends CMD {
                        ctx: collection.mutable.Map[String, String]): Boolean = {
     val (xs, handlers) = GrepFlag.matchOptions(args)
     val (stream, regex) = if (xs.length == 1) {
-      Stream.continually(StdIn.readLine()) -> xs.head
+      Source.fromInputStream(in).getLines().toStream -> xs.head
     } else if (xs.length >= 2) {
       Source.fromFile(xs.tail.mkString).getLines().toStream -> xs.head
     } else Stream.empty -> ""
