@@ -15,11 +15,12 @@ object Appl extends App {
   implicit val p = new ParserImpl
   val in = System.in
   val out = System.out
+  val err = System.err
 
   def run(ctx: collection.mutable.Map[String, String]): Unit = {
     Syntax.commands(StdIn.readLine(), ctx) match {
       case Right(p) =>
-        val result = Interpreter.handle(p, in, out, ctx)
+        val result = Interpreter.handle(p, in, out, err, ctx)
         if (result) run(ctx)
       case Left(_) => ()
     }

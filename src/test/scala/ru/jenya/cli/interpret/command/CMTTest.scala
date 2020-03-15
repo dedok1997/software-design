@@ -1,7 +1,5 @@
 package ru.jenya.cli.interpret.command
 
-import java.io.ByteArrayOutputStream
-
 import utest._
 
 object CMTTest extends TestSuite {

@@ -11,6 +11,7 @@ object AnotherCMD extends CMD {
               args: List[String],
               in: InputStream,
               out: OutputStream,
+              err: OutputStream,
               ctx: collection.mutable.Map[String, String]) = {
     val commandLine = (cmd :: args).asJava
     val p = new ProcessBuilder().command(commandLine)

@@ -5,12 +5,18 @@ import java.io.{ByteArrayInputStream, ByteArrayOutputStream, InputStream, Output
 import ru.jenya.cli.interpret.command.CMD
 import ru.jenya.cli.syntax.data.PipeLine
 
+import scala.util.Try
+
 // Interpreter of cli command
 object Interpreter {
+
+  import ru.jenya.cli.interpret.utils.Streams._
+
   //execute some command
-  def handle(cmd: PipeLine, in: InputStream, out: OutputStream, ctx: collection.mutable.Map[String, String]): Boolean = {
+  def handle(cmd: PipeLine, in: InputStream, out: OutputStream, err: OutputStream, ctx: collection.mutable.Map[String, String]): Boolean = {
     val commands = cmd.commands
     var tempOut: ByteArrayOutputStream = null
+    var tempErr = new ByteArrayOutputStream()
     var tempIn = in
     var result = true
     commands.foreach { cmd =>
@@ -18,11 +24,20 @@ object Interpreter {
         val commandName = cmd.cmd
         val handler = CMD.resolve(commandName)
         tempOut = new ByteArrayOutputStream()
-        result = handler.execute(commandName, cmd.ops, tempIn, tempOut, ctx)
+        result = Try {
+          handler.execute(commandName, cmd.ops, tempIn, tempOut, tempErr, ctx)
+        }.fold({ t =>
+          tempErr.println(t.getMessage)
+          false
+        }, identity)
         tempIn = new ByteArrayInputStream(tempOut.toByteArray)
       }
     }
-    out.write(tempOut.toByteArray)
+    if (tempErr.size() == 0) {
+      out.write(tempOut.toByteArray)
+    } else {
+      err.write(tempErr.toByteArray)
+    }
     result
   }
 }

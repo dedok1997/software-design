@@ -1,1 +1,5 @@
-# software-design
+# Software Design
+
+## Run
+
+`sbt run` 

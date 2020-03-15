@@ -11,8 +11,9 @@ object WCCMD extends CMD {
               args: List[String],
               in: InputStream,
               out: OutputStream,
+              err: OutputStream,
               ctx: collection.mutable.Map[String, String]) = {
-    Files.file((), out) {
+    Files.file((), err) {
       val fileName = args.mkString
       var lines = 0
       var words = 0

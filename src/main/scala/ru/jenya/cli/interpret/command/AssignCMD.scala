@@ -7,6 +7,7 @@ object AssignCMD extends CMD {
               args: List[String],
               in: InputStream,
               out: OutputStream,
+              err: OutputStream,
               ctx: collection.mutable.Map[String, String]) = {
     if (args.size == 2) {
       ctx.put(args.head, args.tail.head)

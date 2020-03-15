@@ -1,6 +1,6 @@
 package ru.jenya.cli.interpret.command.grep
 
-import java.io.{FileNotFoundException, InputStream, OutputStream, OutputStreamWriter}
+import java.io.{InputStream, OutputStream, OutputStreamWriter}
 import java.util.regex.Pattern
 
 import ru.jenya.cli.interpret.command.CMD
@@ -9,18 +9,17 @@ import ru.jenya.cli.interpret.utils.{Colors, Files}
 import scala.collection.SortedMap
 import scala.collection.immutable.TreeMap
 import scala.io.Source
-import scala.util.Try
 
 
 object GrepCMD extends CMD {
-  import ru.jenya.cli.interpret.utils.Streams._
 
   override def execute(s: String,
                        args: List[String],
                        in: InputStream,
                        out: OutputStream,
+                       err: OutputStream,
                        ctx: collection.mutable.Map[String, String]): Boolean = {
-    Files.file((), out){
+    Files.file((), err) {
       val (xs, handlers) = GrepFlag.matchOptions(args)
       val (stream, regex) = if (xs.length == 1) {
         Source.fromInputStream(in).getLines().toStream -> xs.head
@@ -68,4 +67,5 @@ object GrepCMD extends CMD {
   }
 
   final case class MatchResult(source: String, matches: SortedMap[Int, Int], toPrint: Boolean)
+
 }
