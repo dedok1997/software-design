@@ -4,6 +4,7 @@ import java.io.{InputStream, OutputStream}
 
 import ru.jenya.cli.interpret.command.grep.GrepCMD
 
+// Интерфейс для команды интерпритатора
 trait CMD {
   def execute(s: String,
               args: List[String],

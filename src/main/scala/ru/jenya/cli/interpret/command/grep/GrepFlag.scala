@@ -4,10 +4,13 @@ import java.util.regex.Pattern
 
 import ru.jenya.cli.interpret.command.grep.GrepCMD.MatchResult
 
+// Interface for grep flag
 trait GrepFlag {
 
+  // run before searching
   def beforeFound(regex: Pattern, sources: Stream[String]): (Pattern, Stream[String])
 
+  // run after searching
   def afterFound(sources: Stream[MatchResult]): Stream[MatchResult]
 }
 
