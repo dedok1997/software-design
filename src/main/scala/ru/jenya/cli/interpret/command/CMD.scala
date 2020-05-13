@@ -3,19 +3,20 @@ package ru.jenya.cli.interpret.command
 import java.io.{InputStream, OutputStream}
 
 import ru.jenya.cli.interpret.command.grep.GrepCMD
+import ru.jenya.cli.interpret.envirnoment.Env
 
-// Интерфейс для команды интерпритатора
+/** Interface of command executor */
 trait CMD {
   def execute(s: String,
               args: List[String],
               in: InputStream,
               out: OutputStream,
               err: OutputStream,
-              ctx: collection.mutable.Map[String, String]): Boolean
+              ctx: Env): Boolean
 }
 
 object CMD {
-  //resolver of command
+  /** Resolve of command */
   def resolve(s: String): CMD = s match {
     case "cat" => CatCMD
     case "echo" => EchoCMD

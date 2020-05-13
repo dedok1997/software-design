@@ -2,7 +2,14 @@ package ru.jenya.cli.interpret.utils
 
 import java.io.OutputStream
 
-object Streams {
+/** Stream implicits
+ *  {{{
+ *  import StreamsImplicits._
+ *  val out: OutputStream
+ *  out.println("")
+ *  }}}
+ */
+object StreamsImplicits {
 
   implicit class OutputStreamHelper(val out: OutputStream) extends AnyVal {
 

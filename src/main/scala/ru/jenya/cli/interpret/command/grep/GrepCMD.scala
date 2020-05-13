@@ -1,9 +1,11 @@
 package ru.jenya.cli.interpret.command.grep
 
 import java.io.{InputStream, OutputStream, OutputStreamWriter}
+import java.nio.file.Paths
 import java.util.regex.Pattern
 
 import ru.jenya.cli.interpret.command.CMD
+import ru.jenya.cli.interpret.envirnoment.Env
 import ru.jenya.cli.interpret.utils.{Colors, Files}
 
 import scala.collection.SortedMap
@@ -11,6 +13,7 @@ import scala.collection.immutable.TreeMap
 import scala.io.Source
 
 
+/** Executor of grep command */
 object GrepCMD extends CMD {
 
   override def execute(s: String,
@@ -18,13 +21,17 @@ object GrepCMD extends CMD {
                        in: InputStream,
                        out: OutputStream,
                        err: OutputStream,
-                       ctx: collection.mutable.Map[String, String]): Boolean = {
+                       ctx: Env): Boolean = {
     Files.file((), err) {
       val (xs, handlers) = GrepFlag.matchOptions(args)
       val (stream, regex) = if (xs.length == 1) {
         Source.fromInputStream(in).getLines().toStream -> xs.head
       } else if (xs.length >= 2) {
-        Source.fromFile(xs.tail.mkString).getLines().toStream -> xs.head
+        var fileName = xs.tail.mkString
+        if(!Paths.get(fileName).toFile.exists()){
+          fileName = Paths.get(ctx.currentDir()).resolve(fileName).toString
+        }
+        Source.fromFile(fileName).getLines().toStream -> xs.head
       } else Stream.empty -> ""
       val (pattern, s) = handlers.foldLeft(Pattern.compile(regex) -> stream) {
         case ((pattern, stream), handler) => handler.beforeFound(pattern, stream)

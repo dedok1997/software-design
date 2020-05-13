@@ -1,14 +1,15 @@
 package ru.jenya.cli.syntax
 
+import ru.jenya.cli.interpret.envirnoment.Env
 import ru.jenya.cli.show.CLIShow
 import ru.jenya.cli.syntax.data._
 
 object Resolver {
 
-  //Convert tokens with  $(_) to resolved string
+  /**Convert tokens with  $(_) to resolved string*/
   @scala.annotation.tailrec
   def resolve(l: List[Token],
-              env: collection.Map[String, String],
+              env: Env,
               acc: List[String] = List())(implicit show: CLIShow[Token]): List[String] = l match {
     case Op("$") :: Str(key) :: xs => resolve(xs, env, env.getOrElse(key, "") :: acc)
     case Op("$") :: OpBr :: Str(key) :: ClBr :: xs => resolve(xs, env, env.getOrElse(key, "") :: acc)
@@ -19,7 +20,7 @@ object Resolver {
     case x :: xs => resolve(xs, env, show.show(x) :: acc)
   }
 
-  private def resolveString(l: List[Char], env: collection.Map[String, String]): List[Char] = l match {
+  private def resolveString(l: List[Char], env: Env): List[Char] = l match {
     case Nil => Nil
     case '$' :: '(' :: xs =>
       val key = xs.takeWhile(_ != ')').mkString

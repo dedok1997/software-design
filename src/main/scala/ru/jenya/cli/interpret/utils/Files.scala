@@ -5,9 +5,9 @@ import java.io.{FileNotFoundException, OutputStream}
 
 object Files {
 
-  import Streams._
+  import StreamsImplicits._
 
-  // help to handle file exceptions
+  /** Help to handle file exceptions */
   def file[T](defaut: T, out: OutputStream)(f: => T): T = {
     try {
       f

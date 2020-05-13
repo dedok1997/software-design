@@ -3,17 +3,22 @@ package ru.jenya.cli.interpret
 import java.io.{ByteArrayInputStream, ByteArrayOutputStream, InputStream, OutputStream}
 
 import ru.jenya.cli.interpret.command.CMD
+import ru.jenya.cli.interpret.envirnoment.Env
 import ru.jenya.cli.syntax.data.PipeLine
 
 import scala.util.Try
 
-// Interpreter of cli command
+/** Interpreter of cli command */
 object Interpreter {
 
-  import ru.jenya.cli.interpret.utils.Streams._
+  import ru.jenya.cli.interpret.utils.StreamsImplicits._
 
-  //execute some command
-  def handle(cmd: PipeLine, in: InputStream, out: OutputStream, err: OutputStream, ctx: collection.mutable.Map[String, String]): Boolean = {
+  /** Execute command */
+  def handle(cmd: PipeLine,
+             in: InputStream,
+             out: OutputStream,
+             err: OutputStream,
+             ctx: Env): Boolean = {
     val commands = cmd.commands
     var tempOut: ByteArrayOutputStream = null
     var tempErr = new ByteArrayOutputStream()
