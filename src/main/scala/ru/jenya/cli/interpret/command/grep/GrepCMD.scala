@@ -46,7 +46,7 @@ object GrepCMD extends CMD {
       }
       val writer = new OutputStreamWriter(out)
       printGrepResult(handlers.foldLeft(matched) { case (s, h) => h.afterFound(s) }, writer)
-      writer.flush()
+      writer.close()
     }
     true
   }
@@ -70,6 +70,7 @@ object GrepCMD extends CMD {
         }
         writer.write(System.lineSeparator())
     }
+    writer.write(Colors.RESET)
     stream.force
   }
 
